@@ -16,8 +16,8 @@ class Categories extends ResourceController
     {
         $validation =  \Config\Services::validation();
 
-        $name   = $this->request->getPut('category_name');
-        $status = $this->request->getPut('category_status');
+        $name   = $this->request->getPost('category_name');
+        $status = $this->request->getPost('category_status');
         
         $data = [
             'category_name' => $name,
@@ -88,8 +88,8 @@ public function edit($id = NULL)
     public function update($id = NULL)
     {
         $validation =  \Config\Services::validation();
-        $name   = $this->request->getPost('category_name');
-        $status = $this->request->getPost('category_status');
+        $name   = $this->request->getRawInput('category_name');
+        $status = $this->request->getRawInput('category_status');
         $data = [
             'category_name' => $name,
             'category_status' => $status
