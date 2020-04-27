@@ -88,20 +88,28 @@ public function edit($id = NULL)
     public function update($id = NULL)
     {
         $validation =  \Config\Services::validation();
-        $name   = $this->request->getRawInput('category_name');
-        $status = $this->request->getRawInput('category_status');
-        $data = [
-            'category_name' => $name,
-            'category_status' => $status
-        ];
+
+        // $name   = $this->request->getRawInput('category_name');
+        // $status = $this->request->getRawInput('category_status');
+
+        $data = $this->request->getRawInput();
+
+        // $data = [
+        //     'category_name' => $name,
+        //     'category_status' => $status 
+        // ];
+
         if($validation->run($data, 'category') == FALSE){
-            $response = [
+
+            $response = [                                                                                       
                 'status' => 500,
                 'error' => true,
                 'data' => $validation->getErrors(),
             ];
             return $this->respond($response, 500);
+
         } else {
+
             $simpan = $this->model->updateCategory($data,$id);
             if($simpan){
                 $msg = ['message' => 'Updated category successfully'];
@@ -111,7 +119,8 @@ public function edit($id = NULL)
                     'data' => $msg,
                 ];
                 return $this->respond($response, 200);
-            }
+            } 
+            
         }
     }
 
