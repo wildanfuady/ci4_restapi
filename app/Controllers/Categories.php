@@ -45,45 +45,49 @@ class Categories extends ResourceController
         }
     }
 
-public function show($id = NULL)
-{
-    $get = $this->model->getCategory($id);
-    if($get){
-        $response = [
-            'status' => 200,
-            'error' => false,
-            'data' => $get,
-        ];
-        return $this->respond($response, 200);
-    } else {
-        $msg = ['message' => 'Not Found'];
-        $response = [
-            'status' => 404,
-            'error' => false,
-            'data' => $msg,
-        ];
+    public function show($id = NULL)
+    {
+        $get = $this->model->getCategory($id);
+        if($get){
+            $code = 200;
+            $response = [
+                'status' => $code,
+                'error' => false,
+                'data' => $get,
+            ];
+        } else {
+            $code = 401;
+            $msg = ['message' => 'Not Found'];
+            $response = [
+                'status' => $code,
+                'error' => true,
+                'data' => $msg,
+            ];
+        }
+        return $this->respond($response, $code);
     }
-}
 
-public function edit($id = NULL)
-{
-    $get = $this->model->getCategory($id);
-    if($get){
-        $response = [
-            'status' => 200,
-            'error' => false,
-            'data' => $get,
-        ];
-        return $this->respond($response, 200);
-    } else {
-        $msg = ['message' => 'Not Found'];
-        $response = [
-            'status' => 404,
-            'error' => false,
-            'data' => $msg,
-        ];
+    public function edit($id = NULL)
+    {
+        $get = $this->model->getCategory($id);
+        if($get){
+            $code = 200;
+            $response = [
+                'status' => $code,
+                'error' => false,
+                'data' => $get,
+            ];
+        } else {
+            $code = 401;
+            $msg = ['message' => 'Not Found'];
+            $response = [
+                'status' => $code,
+                'error' => true,
+                'data' => $msg,
+            ];
+        }
+        return $this->respond($response, $code);
     }
-}
 
     public function update($id = NULL)
     {
@@ -128,21 +132,23 @@ public function edit($id = NULL)
     {
         $hapus = $this->model->deleteCategory($id);
         if($hapus){
+            $code = 200;
             $msg = ['message' => 'Deleted category successfully'];
             $response = [
-                'status' => 200,
+                'status' => $code,
                 'error' => false,
                 'data' => $msg,
             ];
-            return $this->respond($response, 200);
         } else {
+            $code = 401;
             $msg = ['message' => 'Not Found'];
             $response = [
-                'status' => 404,
+                'status' => $code,
                 'error' => false,
                 'data' => $msg,
             ];
         }
+        return $this->respond($response, $code);
     }
     
 }
